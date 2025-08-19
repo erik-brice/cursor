@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recalculate Preview Modal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .modal-backdrop {
+            backdrop-filter: blur(4px);
+            transition: opacity 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .modal-backdrop.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal-backdrop.visible {
+            opacity: 1;
+        }
+        .modal-content {
+            transition: all 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
+            transform: scale(0.95) translateY(-10px);
+            opacity: 0;
+        }
+        .modal-content.visible {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    
+    <!-- Trigger Button -->
+    <div class="flex items-center justify-center min-h-screen">
+        <button id="openModal" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+            Show Modal
+        </button>
+    </div>
+
+    <!-- Modal Backdrop -->
+    <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop flex items-center justify-center hidden z-50">
+        
+        <!-- Modal Container -->
+        <div id="modalContent" class="relative w-full max-w-[600px] mx-4 modal-content">
+            
+            <!-- Modal Content -->
+            <div class="bg-white rounded-xl shadow-[0px_8px_8px_0px_rgba(35,39,47,0.12),0px_16px_32px_4px_rgba(35,39,47,0.2)] overflow-hidden">
+                
+                <!-- Header -->
+                <div class="bg-white flex items-center justify-between gap-3 px-10 pt-8 pb-5 rounded-t-xl">
+                    <h2 class="text-[#2f333e] text-[16px] font-semibold leading-[22px] flex-1">
+                        Recalculate preview required
+                    </h2>
+                    <button id="closeModal" class="w-7 h-7 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors">
+                        <!-- Close Icon (X) -->
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 1L1 13M1 1L13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Content -->
+                <div class="bg-white px-10 py-5">
+                    <p class="text-[#2f333e] text-[14px] leading-[20px]">
+                        Some changes haven't been applied yet that may affect payroll costs. Recalculate preview to apply your changes before continuing.
+                    </p>
+                </div>
+                
+                <!-- Footer -->
+                <div class="bg-white px-10 pt-5 pb-8 flex items-center justify-end gap-5">
+                    <button id="cancelBtn" class="bg-white border border-gray-300 text-[#2f333e] text-[14px] font-semibold leading-[20px] px-4 py-2.5 rounded-lg min-w-[100px] h-10 hover:bg-gray-50 transition-colors">
+                        Cancel
+                    </button>
+                    <button id="recalculateBtn" class="bg-[#3a67d4] text-white text-[14px] font-semibold leading-[20px] px-4 py-2.5 rounded-lg min-w-[100px] h-10 hover:bg-blue-700 transition-colors">
+                        Recalculate preview
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modalBackdrop = document.getElementById('modalBackdrop');
+        const modalContent = document.getElementById('modalContent');
+        const openModalBtn = document.getElementById('openModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const recalculateBtn = document.getElementById('recalculateBtn');
+
+        // Open modal with animation
+        openModalBtn.addEventListener('click', () => {
+            modalBackdrop.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            // Trigger animation after element is visible
+            requestAnimationFrame(() => {
+                modalBackdrop.classList.add('visible');
+                modalContent.classList.add('visible');
+            });
+        });
+
+        // Close modal functions
+        function closeModal() {
+            modalBackdrop.classList.remove('visible');
+            modalContent.classList.remove('visible');
+            
+            // Wait for animation to complete before hiding
+            setTimeout(() => {
+                modalBackdrop.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }, 300);
+        }
+
+        // Close modal events
+        closeModalBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        
+        // Close modal when clicking backdrop
+        modalBackdrop.addEventListener('click', (e) => {
+            if (e.target === modalBackdrop) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modalBackdrop.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // Recalculate button action
+        recalculateBtn.addEventListener('click', () => {
+            // Close modal with animation and redirect
+            closeModal();
+            
+            // Redirect after modal close animation completes
+            setTimeout(() => {
+                window.location.href = 'payroll-settings.html';
+            }, 300);
+        });
+    </script>
+
+</body>
+</html>

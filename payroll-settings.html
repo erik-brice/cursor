@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Settings - My Hospitality Company</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen">
+    
+    <!-- Top Bar -->
+    <div class="bg-white border-b border-gray-300 shadow-sm h-20 flex items-center justify-between px-6 py-2">
+        <!-- Left side - Title and subtitle -->
+        <div class="flex flex-col gap-1">
+            <div class="flex items-baseline gap-2">
+                <h1 class="text-[#2f333e] text-[16px] font-semibold leading-[22px]">
+                    Run regular payroll
+                </h1>
+                <span class="text-[#68728a] text-[14px] leading-[20px]">
+                    My Hospitality Company
+                </span>
+            </div>
+        </div>
+        
+        <!-- Right side - Buttons -->
+        <div class="flex items-center gap-3">
+            <button class="bg-white border border-gray-300 text-[#464d5d] text-[14px] font-semibold leading-[20px] px-4 py-2.5 rounded-lg min-w-[100px] h-10 hover:bg-gray-50 transition-colors">
+                Cancel
+            </button>
+            <button class="bg-[#3a67d4] text-white text-[14px] font-semibold leading-[20px] px-4 py-2.5 rounded-lg min-w-[100px] h-10 hover:bg-blue-700 transition-colors">
+                Next
+            </button>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="bg-[#fafbfc] flex-1 flex flex-col items-center justify-start px-6 py-10 gap-6">
+        
+        <!-- Content Container -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 w-full max-w-[790px] overflow-hidden">
+            
+            <!-- Header -->
+            <div class="p-6 pb-4">
+                <h2 class="text-[#2f333e] text-[18px] font-bold leading-[25px]">
+                    More settings
+                </h2>
+            </div>
+            
+            <!-- Divider -->
+            <div class="h-px bg-gray-200 w-full"></div>
+            
+            <!-- Settings Content -->
+            <div class="p-5 flex flex-col gap-4">
+                
+                <!-- Apply time off taken from Workstream -->
+                <div class="border border-gray-200 rounded-xl p-4 flex items-center gap-2">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <div class="text-[#2f333e] text-[14px] leading-[20px]">
+                            Apply time off taken from Workstream
+                        </div>
+                        <div class="text-[#68728a] text-[14px] leading-[20px]">
+                            5 team members took time off this pay period. <span class="text-[#3a67d4] cursor-pointer hover:underline">View</span>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 flex-shrink-0">
+                        <input type="checkbox" checked class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                    </div>
+                </div>
+                
+                <!-- Apply time entries approved from Workstream -->
+                <div class="border border-gray-200 rounded-xl p-4 flex items-center gap-2">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <div class="text-[#2f333e] text-[14px] leading-[20px]">
+                            Apply time entries approved from Workstream
+                        </div>
+                        <div class="text-[#68728a] text-[14px] leading-[20px]">
+                            5 team members have unpaid time. <span class="text-[#3a67d4] cursor-pointer hover:underline">View</span>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 flex-shrink-0">
+                        <input type="checkbox" checked class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                    </div>
+                </div>
+                
+                <!-- Include tip pools -->
+                <div class="border border-gray-200 rounded-xl py-5 flex flex-col gap-5">
+                    <!-- Main tip pools section -->
+                    <div class="px-5 flex items-start gap-2">
+                        <div class="flex-1 flex flex-col gap-1">
+                            <div class="text-[#2f333e] text-[14px] leading-[20px]">
+                                Include tip pools
+                            </div>
+                            <div class="text-[#68728a] text-[14px] leading-[20px]">
+                                Select tip pools available for this pay period
+                            </div>
+                        </div>
+                        <div class="w-6 h-6 flex-shrink-0">
+                            <input type="checkbox" checked class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                        </div>
+                    </div>
+                    
+                    <!-- Divider -->
+                    <div class="h-px bg-gray-200 w-full"></div>
+                    
+                    <!-- Tip pool 1 -->
+                    <div class="px-5 py-3 flex items-center gap-2">
+                        <div class="flex-1 flex flex-col gap-1">
+                            <div class="text-[#2f333e] text-[14px] font-semibold leading-[20px]">
+                                Tip pool
+                            </div>
+                            <div class="text-[#68728a] text-[14px] leading-[20px]">
+                                Amount · N potential recipients · Distribution method
+                            </div>
+                        </div>
+                        <div class="w-6 h-6 flex-shrink-0">
+                            <input type="checkbox" checked class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                        </div>
+                    </div>
+                    
+                    <!-- Tip pool 2 -->
+                    <div class="px-5 py-3 flex items-center gap-2">
+                        <div class="flex-1 flex flex-col gap-1">
+                            <div class="text-[#2f333e] text-[14px] font-semibold leading-[20px]">
+                                Tip pool
+                            </div>
+                            <div class="text-[#68728a] text-[14px] leading-[20px]">
+                                Amount · N potential recipients · Distribution method
+                            </div>
+                        </div>
+                        <div class="w-6 h-6 flex-shrink-0">
+                            <input type="checkbox" checked class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                        </div>
+                    </div>
+                    
+                    <!-- Tip pool 3 -->
+                    <div class="px-5 py-3 flex items-center gap-2">
+                        <div class="flex-1 flex flex-col gap-1">
+                            <div class="text-[#2f333e] text-[14px] font-semibold leading-[20px]">
+                                Tip pool
+                            </div>
+                            <div class="text-[#68728a] text-[14px] leading-[20px]">
+                                Amount · N potential recipients · Distribution method
+                            </div>
+                        </div>
+                        <div class="w-6 h-6 flex-shrink-0">
+                            <input type="checkbox" checked class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Checkbox interaction functionality
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Add any checkbox logic here
+                console.log(`Checkbox changed: ${this.checked}`);
+            });
+        });
+
+        // Navigation buttons
+        const cancelBtn = Array.from(document.querySelectorAll('button')).find(btn => btn.textContent.trim() === 'Cancel');
+        const nextBtn = Array.from(document.querySelectorAll('button')).find(btn => btn.textContent.trim() === 'Next');
+        
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                // Navigate back or close
+                window.history.back();
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                // Process settings and continue to next step
+                console.log('Proceeding to next step...');
+                alert('Settings saved! Proceeding to next step...');
+            });
+        }
+    </script>
+
+</body>
+</html>
