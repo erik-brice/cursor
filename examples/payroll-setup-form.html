@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Setup Form - Using Design System Components</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        /* Figma Design System Variables */
+        :root {
+            /* Text Colors */
+            --color-text-primary: #2f333e;
+            --color-text-secondary: #68728a;
+            
+            /* Surface Colors */
+            --color-surface-container: #ffffff;
+            --color-bg-gray-2: #fafbfc;
+            
+            /* Border Colors */
+            --color-border-light: #e4e4e7;
+            --color-border-default: #d4d4d8;
+            
+            /* Button Colors */
+            --color-primary-500: #3a67d4;
+            --color-neutral-600: #464d5d;
+            
+            /* Shadows */
+            --shadow-card: 0px 1px 2px 0px rgba(35,39,47,0.06), 0px 1px 3px 1px rgba(35,39,47,0.1);
+            --shadow-top-bar: 0px 1px 4px 0px rgba(0,0,0,0.12);
+        }
+        
+        /* Component Styles using Design System */
+        .page-container {
+            background-color: var(--color-surface-container);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .top-bar {
+            background-color: var(--color-surface-container);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 24px;
+            border-bottom: 1px solid var(--color-border-default);
+            box-shadow: var(--shadow-top-bar);
+        }
+        
+        .top-bar-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .top-bar-title {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        
+        .top-bar-main-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            line-height: 22px;
+        }
+        
+        .top-bar-subtitle {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+            line-height: 20px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 20px;
+            min-width: 100px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 200ms;
+            border: 1px solid transparent;
+        }
+        
+        .btn-secondary {
+            background-color: var(--color-surface-container);
+            color: var(--color-neutral-600);
+            border-color: var(--color-border-default);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f9fafb;
+        }
+        
+        .btn-primary {
+            background-color: var(--color-primary-500);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .page-content {
+            flex: 1;
+            background-color: var(--color-bg-gray-2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 24px;
+            gap: 24px;
+        }
+        
+        .content-card {
+            background-color: var(--color-surface-container);
+            width: 790px;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            line-height: 25px;
+        }
+        
+        .card-subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            line-height: 20px;
+        }
+        
+        .card-divider {
+            height: 1px;
+            background-color: var(--color-border-light);
+            width: 100%;
+        }
+        
+        .card-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        /* Form Input Styles */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 340px;
+        }
+        
+        .input-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            line-height: 20px;
+        }
+        
+        .input-field {
+            background-color: var(--color-surface-container);
+            border: 1px solid var(--color-border-default);
+            border-radius: 8px;
+            padding: 8px 16px;
+            height: 40px;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--color-text-primary);
+            line-height: 20px;
+            transition: border-color 200ms;
+        }
+        
+        .input-field:hover {
+            border-color: #68728a;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #464d5d;
+        }
+        
+        .supporting-text {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+            line-height: 20px;
+            margin-top: 4px;
+        }
+        
+        .approve-deadline {
+            font-size: 14px;
+            color: var(--color-text-primary);
+            line-height: 20px;
+        }
+        
+        .approve-deadline-bold {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content">
+                <div class="top-bar-title">
+                    <h1 class="top-bar-main-title">Run regular payroll</h1>
+                    <span class="top-bar-subtitle">My Hospitality Company</span>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-secondary">Cancel</button>
+                <button class="btn btn-primary">Next</button>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <div class="content-card">
+                <!-- Header -->
+                <div class="card-header">
+                    <h2 class="card-title">Payroll setup</h2>
+                    <p class="card-subtitle">Pay period: Jan 1 - Jan 15, 2025</p>
+                </div>
+
+                <!-- Divider -->
+                <div class="card-divider"></div>
+
+                <!-- Content -->
+                <div class="card-content">
+                    <!-- Payroll Name Input -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="input-label">Payroll name</label>
+                            <input type="text" class="input-field" value="January payroll cycle 1" />
+                        </div>
+                    </div>
+
+                    <!-- Funding Account Input -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="input-label">Funding account</label>
+                            <input type="text" class="input-field" value="1 day" />
+                            <div class="supporting-text">
+                                We'll debit this account for the automatic withdrawal total of this payroll run.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pay Day and Processing Period -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="input-label">Pay day</label>
+                            <input type="text" class="input-field" value="Jan 15, 2025" />
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Processing period</label>
+                            <input type="text" class="input-field" value="1 day" />
+                            <div class="supporting-text">
+                                Determines how many days ahead of payday you will have to approval payroll (Approve Deadline).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Approve Deadline -->
+                    <div class="approve-deadline">
+                        Approve deadline: <span class="approve-deadline-bold">Sat, Jan 15 2025, 6:00PM PST</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive functionality
+        document.querySelectorAll('.input-field').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#464d5d';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.borderColor = '#d4d4d8';
+            });
+        });
+
+        // Button interactions
+        document.querySelector('.btn-secondary').addEventListener('click', function() {
+            alert('Cancel clicked - would navigate back');
+        });
+
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            alert('Next clicked - would proceed to next step');
+        });
+    </script>
+</body>
+</html>

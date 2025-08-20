@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextInput Component - Figma Extracted</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        /* Figma Design System Colors */
+        :root {
+            --color-neutral-900: #161a24;
+            --color-text-secondary: #091a4299;
+            --color-text-placeholder: #061a4a4d;
+            --color-neutral-300: #d4d4d8;
+            --color-neutral-500: #68728a;
+            --color-neutral-600: #464d5d;
+            --color-surface-container: #ffffff;
+            --color-surface-background: #f9fafb;
+            --color-error-400: #ee4052;
+            --color-primary-500: #3a67d4;
+        }
+        
+        /* TextInput Styles */
+        .text-input {
+            width: 100%;
+            position: relative;
+        }
+        
+        .text-input-label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .text-input-label-text {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--color-neutral-900);
+            line-height: 20px;
+        }
+        
+        .text-input-label-optional {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+            line-height: 20px;
+        }
+        
+        .text-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--color-surface-container);
+            border: 1px solid var(--color-neutral-300);
+            border-radius: 8px;
+            padding: 8px 12px;
+            height: 40px;
+            transition: border-color 200ms, box-shadow 200ms;
+        }
+        
+        .text-input-container:hover {
+            border-color: var(--color-neutral-500);
+        }
+        
+        .text-input-container:focus-within {
+            border-color: var(--color-neutral-600);
+            box-shadow: 0 0 0 2px rgba(58, 103, 212, 0.2);
+        }
+        
+        .text-input-container.error {
+            border-color: var(--color-error-400);
+        }
+        
+        .text-input-container.error:focus-within {
+            border-color: var(--color-error-400);
+            box-shadow: 0 0 0 2px rgba(238, 64, 82, 0.2);
+        }
+        
+        .text-input-container.disabled {
+            background: var(--color-surface-background);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .text-input-field {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: var(--color-neutral-900);
+            line-height: 20px;
+        }
+        
+        .text-input-field::placeholder {
+            color: var(--color-text-placeholder);
+        }
+        
+        .text-input-field:disabled {
+            cursor: not-allowed;
+            color: var(--color-text-secondary);
+        }
+        
+        .text-input-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--color-neutral-500);
+            flex-shrink: 0;
+        }
+        
+        .text-input-clear {
+            width: 24px;
+            height: 24px;
+            color: var(--color-neutral-500);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: color 200ms;
+        }
+        
+        .text-input-clear:hover {
+            color: var(--color-neutral-700);
+        }
+        
+        .text-input-message {
+            margin-top: 4px;
+            font-size: 12px;
+            line-height: 17px;
+        }
+        
+        .text-input-error {
+            color: var(--color-error-400);
+        }
+        
+        .text-input-supporting {
+            color: var(--color-text-secondary);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto p-8 max-w-4xl">
+        <h1 class="text-3xl font-bold mb-2" style="color: var(--color-neutral-900);">
+            TextInput Component
+        </h1>
+        <p class="mb-8" style="color: var(--color-text-secondary);">
+            Extracted from Figma with full state management and design tokens
+        </p>
+        
+        <div class="grid gap-8">
+            <!-- Basic Example -->
+            <section class="bg-white p-6 rounded-xl shadow-sm">
+                <h2 class="text-xl font-semibold mb-4" style="color: var(--color-neutral-900);">Basic Examples</h2>
+                <div class="grid gap-6 md:grid-cols-2">
+                    <!-- Default Input -->
+                    <div class="text-input">
+                        <div class="text-input-label">
+                            <label class="text-input-label-text">Email</label>
+                            <span class="text-input-label-optional">• optional</span>
+                        </div>
+                        <div class="text-input-container">
+                            <svg class="text-input-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <input class="text-input-field" placeholder="Enter your email" type="email" />
+                            <button class="text-input-clear" style="display: none;">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="text-input-message text-input-supporting">
+                            We'll use this to send you updates
+                        </div>
+                    </div>
+                    
+                    <!-- Input with Value -->
+                    <div class="text-input">
+                        <div class="text-input-label">
+                            <label class="text-input-label-text">Name</label>
+                        </div>
+                        <div class="text-input-container">
+                            <input class="text-input-field" placeholder="Enter your name" value="John Doe" />
+                            <button class="text-input-clear">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" fill="currentColor" fill-opacity="0.1"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 9l-6 6m0-6l6 6"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- States -->
+            <section class="bg-white p-6 rounded-xl shadow-sm">
+                <h2 class="text-xl font-semibold mb-4" style="color: var(--color-neutral-900);">Input States</h2>
+                <div class="grid gap-6">
+                    <!-- Error State -->
+                    <div class="text-input">
+                        <div class="text-input-label">
+                            <label class="text-input-label-text">Email</label>
+                        </div>
+                        <div class="text-input-container error">
+                            <svg class="text-input-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <input class="text-input-field" placeholder="Enter your email" value="invalid-email" />
+                            <button class="text-input-clear">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" fill="currentColor" fill-opacity="0.1"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 9l-6 6m0-6l6 6"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="text-input-message text-input-error">
+                            Please enter a valid email address
+                        </div>
+                    </div>
+                    
+                    <!-- Disabled State -->
+                    <div class="text-input">
+                        <div class="text-input-label">
+                            <label class="text-input-label-text">Disabled Input</label>
+                        </div>
+                        <div class="text-input-container disabled">
+                            <input class="text-input-field" placeholder="This input is disabled" disabled />
+                        </div>
+                        <div class="text-input-message text-input-supporting">
+                            This field is currently disabled
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Usage Examples -->
+            <section class="bg-blue-50 border border-blue-200 p-6 rounded-xl">
+                <h2 class="text-xl font-semibold mb-3 text-blue-900">React Usage</h2>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-semibold text-blue-800 mb-2">Basic TextInput</h3>
+                        <pre class="bg-blue-100 p-3 rounded text-sm text-blue-800 overflow-x-auto"><code>&lt;TextInput
+  label="Email"
+  placeholder="Enter your email"
+  leadingIcon={true}
+  showClearButton={true}
+  supportingText="We'll use this to send you updates"
+/&gt;</code></pre>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-blue-800 mb-2">Email Input Preset</h3>
+                        <pre class="bg-blue-100 p-3 rounded text-sm text-blue-800 overflow-x-auto"><code>&lt;EmailInput
+  label="Email Address"
+  optional={true}
+  error={emailError}
+  errorMessage="Please enter a valid email"
+/&gt;</code></pre>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-blue-800 mb-2">Password Input Preset</h3>
+                        <pre class="bg-blue-100 p-3 rounded text-sm text-blue-800 overflow-x-auto"><code>&lt;PasswordInput
+  label="Password"
+  supportingText="Minimum 8 characters"
+/&gt;</code></pre>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-blue-800 mb-2">Search Input Preset</h3>
+                        <pre class="bg-blue-100 p-3 rounded text-sm text-blue-800 overflow-x-auto"><code>&lt;SearchInput
+  placeholder="Search products..."
+  showClearButton={true}
+/&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Design Tokens Used -->
+            <section class="bg-white p-6 rounded-xl shadow-sm">
+                <h2 class="text-xl font-semibold mb-4" style="color: var(--color-neutral-900);">Figma Design Tokens Used</h2>
+                <div class="grid gap-4 md:grid-cols-2">
+                    <div>
+                        <h3 class="font-semibold mb-2" style="color: var(--color-neutral-900);">Colors</h3>
+                        <ul class="space-y-1 text-sm" style="color: var(--color-text-secondary);">
+                            <li>• Text Primary: #161a24</li>
+                            <li>• Text Secondary: rgba(9, 26, 66, 0.6)</li>
+                            <li>• Placeholder: rgba(6, 26, 74, 0.3)</li>
+                            <li>• Border Default: #d4d4d8</li>
+                            <li>• Border Hover: #68728a</li>
+                            <li>• Border Active: #464d5d</li>
+                            <li>• Error: #ee4052</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold mb-2" style="color: var(--color-neutral-900);">Typography & Spacing</h3>
+                        <ul class="space-y-1 text-sm" style="color: var(--color-text-secondary);">
+                            <li>• Font: Plus Jakarta Sans</li>
+                            <li>• Body: 14px/20px line height</li>
+                            <li>• Caption: 12px/17px line height</li>
+                            <li>• Padding: 8px 12px</li>
+                            <li>• Height: 40px</li>
+                            <li>• Border Radius: 8px</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script>
+        // Add interactive functionality
+        document.querySelectorAll('.text-input-field').forEach(input => {
+            const container = input.closest('.text-input-container');
+            const clearButton = container.querySelector('.text-input-clear');
+            
+            // Show/hide clear button based on input value
+            function toggleClearButton() {
+                if (clearButton) {
+                    clearButton.style.display = input.value ? 'flex' : 'none';
+                }
+            }
+            
+            input.addEventListener('input', toggleClearButton);
+            toggleClearButton(); // Initial check
+            
+            // Clear functionality
+            if (clearButton) {
+                clearButton.addEventListener('click', () => {
+                    input.value = '';
+                    input.focus();
+                    toggleClearButton();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
